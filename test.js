@@ -41,8 +41,32 @@ let videoTest = () => {
         });
 }
 
-imageTest();
-videoTest();
+let multiRequest = () => {
+    const options = {
+        uri: 'https://www.instagram.com/p/Ba2cyAqn9e4XyBeKwmGQfKbJuDqQnbSJhtGwmM0/',
+        transform: (body) => {
+            console.log(body);
+            return cheerio.load(body);
+        }
+    }
+    
+    rp(options)
+        .then(($) => {
+            // looking for <meta property="og:image" content="https://instagram.fsyd4-1.fna.fbcdn.net/t51.2885-15/e35/22858066_286933651813045_6833344662162374656_n.jpg" />
+            let imageMeta = $('meta[property="og:video"]');
+            console.log(imageMeta.attr("content"));
+        })
+        .catch((err) => {
+            throw err;
+        });
+
+    
+}
+
+multiRequest();
+
+// imageTest();
+// videoTest();
 
 
 // example request

@@ -46,6 +46,7 @@ let instalooter = (url) => {
                     return res.text();
                 }
                 else {
+                    debugger;
                     throw "It's not ok, captain. I WENT TOO RICKY RICARDO"
                 }
             })
@@ -69,11 +70,17 @@ document.getElementById("download").addEventListener("click", (evt) => {
     let igUrl = urlInput.value;
 
     if (instavalidator(igUrl) === true) {
+        let modalBackground = document.querySelector(".modal-background");
+        modalBackground.style.display = "block";
+
         instalooter(urlInput.value)
             .then((url) => {
+                modalBackground.style.display = "none";
                 saveFile(url);
             })
             .catch((err) => {
+                modalBackground.style.display = "none";
+                window.alert(err);
                 console.error(err);
             })
     }

@@ -15,8 +15,6 @@ app.use(bodyParser.json());
 
 // end point for downloading an image or video
 app.route("/instaloot").post((req, response) => {
-    console.log(req.body);
-
     if (req.body.url) {
         // TODO: validate instagram url
         let options = {
@@ -43,7 +41,8 @@ app.route("/instaloot").post((req, response) => {
                 response.status(200).send(responseUrl);
             })
             .catch((err) => {
-                throw err;
+                // throw err;
+                response.status(500).send("Invalid response from Instagram");
             });
     }
     else {
