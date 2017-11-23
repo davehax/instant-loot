@@ -69,6 +69,11 @@ document.getElementById("download").addEventListener("click", (evt) => {
     let urlInput = document.getElementById("url");
     let igUrl = urlInput.value;
 
+    // add trailing slash if it's missing
+    if (igUrl[igUrl.length - 1] !== "/") {
+        igUrl += "/";
+    }
+
     if (instavalidator(igUrl) === true) {
         let modalBackground = document.querySelector(".modal-background");
         modalBackground.style.display = "block";
@@ -77,6 +82,7 @@ document.getElementById("download").addEventListener("click", (evt) => {
             .then((url) => {
                 modalBackground.style.display = "none";
                 saveFile(url);
+                urlInput.value = ""; // wipe value from input box
             })
             .catch((err) => {
                 modalBackground.style.display = "none";
